@@ -1,0 +1,1139 @@
+cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Armory AI — Advanced Data Automation Platform</title>
+  <meta name="description" content="Deploy custom enterprise AI agents and automate complex workflows at scale. Sub-11ms latency, 99.99% uptime, and real-time edge inference. Start free." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://armory.ai/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://armory.ai/" />
+  <meta property="og:title" content="Armory AI — Advanced Data Automation Platform" />
+  <meta property="og:description" content="Deploy custom enterprise AI agents and automate complex workflows at scale." />
+  <meta property="og:image" content="https://armory.ai/og-image.png" />
+  <meta property="og:site_name" content="Armory AI" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Armory AI — Advanced Data Automation Platform" />
+  <meta name="twitter:description" content="Deploy custom enterprise AI agents and automate complex workflows at scale." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['JetBrains Mono','Courier New','monospace'] },
+          colors: { bg:'#05090C', teal:'#114C5A', gold:'#FFC801', amber:'#FF9932', snow:'#F8FAFC', slate:'#94A3B8', card:'#0A1016' },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --c-bg:#05090C; --c-card:#0A1016; --c-teal:#114C5A;
+      --c-gold:#FFC801; --c-amber:#FF9932; --c-snow:#F8FAFC; --c-slate:#94A3B8;
+      --ease-out:cubic-bezier(0.16,1,0.3,1);
+      --ease-io:cubic-bezier(0.45,0,0.55,1);
+      --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#05090C;color:#F8FAFC}
+    body{font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+    ::selection{background:var(--c-gold);color:var(--c-bg)}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--c-bg)}
+    ::-webkit-scrollbar-thumb{background:var(--c-teal);border-radius:4px}
+
+    /* ══ PAGE LOADER ══ */
+    #loader{
+      position:fixed;inset:0;z-index:10000;
+      background:var(--c-bg);
+      display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;
+      transition:opacity 0.5s var(--ease-out), visibility 0.5s;
+    }
+    #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-logo{
+      font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;
+      letter-spacing:-0.05em;color:var(--c-snow);
+      animation:loaderPulse 1s var(--ease-io) infinite alternate;
+    }
+    .loader-logo span{color:var(--c-gold)}
+    @keyframes loaderPulse{from{opacity:0.4}to{opacity:1}}
+    .loader-bar-wrap{width:200px;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
+    .loader-bar{height:100%;background:linear-gradient(90deg,var(--c-teal),var(--c-gold));border-radius:2px;width:0%;transition:width 0.4s var(--ease-out)}
+
+    /* ══ CURSOR ══ */
+    #cur-dot{position:fixed;top:0;left:0;width:6px;height:6px;background:var(--c-gold);border-radius:50%;pointer-events:none;z-index:9999;will-change:transform;mix-blend-mode:difference}
+    #cur-ring{position:fixed;top:0;left:0;width:40px;height:40px;border:1.5px solid rgba(255,200,1,0.5);border-radius:50%;pointer-events:none;z-index:9998;will-change:transform;transition:width 200ms var(--ease-out),height 200ms var(--ease-out),background-color 200ms var(--ease-out),border-color 200ms var(--ease-out)}
+    .cursor-grow{width:64px!important;height:64px!important;background:rgba(255,200,1,0.07)!important;border-color:rgba(255,200,1,0.8)!important}
+    .cursor-click{transform:scale(0.7)!important}
+
+    /* ══ SCROLL REVEAL — 4 variants ══ */
+    .sr{opacity:0;transform:translateY(40px);transition:opacity 0.65s var(--ease-out),transform 0.65s var(--ease-out);will-change:opacity,transform}
+    .sr-left{opacity:0;transform:translateX(-50px);transition:opacity 0.65s var(--ease-out),transform 0.65s var(--ease-out)}
+    .sr-right{opacity:0;transform:translateX(50px);transition:opacity 0.65s var(--ease-out),transform 0.65s var(--ease-out)}
+    .sr-scale{opacity:0;transform:scale(0.88);transition:opacity 0.6s var(--ease-out),transform 0.6s var(--ease-out)}
+    .sr.in,.sr-left.in,.sr-right.in,.sr-scale.in{opacity:1;transform:none}
+    .sd1{transition-delay:.08s}.sd2{transition-delay:.16s}.sd3{transition-delay:.24s}.sd4{transition-delay:.32s}.sd5{transition-delay:.40s}
+
+    /* ══ HERO WORD STAGGER ══ */
+    .word{display:inline-block;opacity:0;transform:translateY(30px) rotate(2deg);will-change:opacity,transform}
+    .word.revealed{animation:wordUp 0.42s var(--ease-out) forwards}
+    @keyframes wordUp{to{opacity:1;transform:none}}
+
+    /* ══ TYPING CURSOR BLINK ══ */
+    .type-cursor{display:inline-block;width:3px;height:1em;background:var(--c-gold);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* ══ GLOW CARD ══ */
+    .gcard{position:relative;overflow:hidden;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);transition:border-color 180ms var(--ease-out),box-shadow 180ms var(--ease-out),transform 180ms var(--ease-out)}
+    .gcard::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(255,200,1,0.08),transparent 40%);opacity:0;transition:opacity 300ms;z-index:0}
+    .gcard:hover::before{opacity:1}
+    .gcard:hover{border-color:rgba(255,200,1,0.35)}
+    .gcard>*{position:relative;z-index:1}
+
+    /* ══ SHIMMER on cards ══ */
+    .shimmer-card::after{
+      content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+      background:linear-gradient(105deg,transparent 40%,rgba(255,200,1,0.06) 50%,transparent 60%);
+      background-size:200% 100%;
+      opacity:0;transition:opacity 0.3s;
+    }
+    .shimmer-card:hover::after{opacity:1;animation:shimmer 0.7s var(--ease-out) forwards}
+    @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+    /* ══ STATS COUNTER NUMBER FLIP ══ */
+    .stat-num{display:inline-block;transition:transform 0.3s var(--ease-spring),opacity 0.3s}
+    .stat-num.flip{transform:translateY(-20px) scale(0.9);opacity:0}
+
+    /* ══ BENTO GRID ══ */
+    .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .bento-cell{border-radius:1.25rem;padding:2.5rem;cursor:pointer;outline:none;transition:transform 200ms var(--ease-spring),box-shadow 200ms var(--ease-out)}
+    .bento-cell:hover{transform:translateY(-4px) scale(1.01)}
+    .bento-cell:focus-visible{outline:2px solid var(--c-gold);outline-offset:2px}
+    .bento-cell.span2{grid-column:span 2}
+    .bento-cell.active-bento{border-color:rgba(255,200,1,0.5)!important;background:rgba(255,200,1,0.04);box-shadow:0 0 40px -10px rgba(255,200,1,0.2)}
+    .bento-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,200,1,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;transition:background 200ms var(--ease-out),transform 200ms var(--ease-spring)}
+    .bento-cell:hover .bento-icon{background:rgba(255,200,1,0.16);transform:scale(1.1) rotate(-3deg)}
+
+    /* ══ ACCORDION ══ */
+    .accordion-list{display:none;flex-direction:column;gap:0.75rem}
+    .acc-item{border-radius:1rem;overflow:hidden}
+    .acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;cursor:pointer;background:none;border:none;color:var(--c-snow);font-family:'JetBrains Mono',monospace;font-size:0.9rem;font-weight:700;text-align:left;transition:color 175ms var(--ease-out)}
+    .acc-trigger:hover{color:var(--c-gold)}
+    .acc-icon{width:24px;height:24px;flex-shrink:0;transition:transform 350ms var(--ease-io)}
+    .acc-panel{max-height:0;overflow:hidden;transition:max-height 380ms var(--ease-io),padding 380ms var(--ease-io);padding:0 1.5rem}
+    .acc-item.open .acc-trigger{color:var(--c-gold)}
+    .acc-item.open .acc-icon{transform:rotate(45deg)}
+    .acc-item.open .acc-panel{max-height:200px;padding:0 1.5rem 1.5rem}
+    @media(max-width:767px){.bento-grid{display:none!important}.accordion-list{display:flex!important}}
+
+    /* ══ GAUGE / BARS ══ */
+    .gauge-arc{transition:stroke-dashoffset 1.8s var(--ease-out)}
+    .bar{transition:height 1.4s var(--ease-out)}
+
+    /* ══ PRICING CARDS ══ */
+    .price-card{transition:transform 350ms var(--ease-io),border-color 175ms var(--ease-out),box-shadow 175ms var(--ease-out),background 175ms var(--ease-out)}
+    .price-card.featured{transform:translateY(-1rem)}
+    .price-card:not(.featured):hover{transform:translateY(-6px)}
+
+    /* 3D tilt on hover */
+    .tilt-card{transform-style:preserve-3d;transition:transform 250ms var(--ease-out)}
+
+    /* ══ BUTTON RIPPLE ══ */
+    .btn-ripple{position:relative;overflow:hidden}
+    .btn-ripple .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);transform:scale(0);animation:rippleAnim 0.55s var(--ease-out) forwards;pointer-events:none}
+    @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+    /* ══ FLOATING BADGES (hero) ══ */
+    .float-badge{
+      position:absolute;background:rgba(10,16,22,0.85);border:1px solid rgba(255,200,1,0.2);
+      backdrop-blur:12px;border-radius:12px;padding:10px 14px;
+      font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+      white-space:nowrap;pointer-events:none;
+      animation:float 4s var(--ease-io) infinite alternate;
+    }
+    .float-badge:nth-child(2){animation-delay:-1.3s;animation-duration:3.5s}
+    .float-badge:nth-child(3){animation-delay:-2.6s;animation-duration:4.5s}
+    @keyframes float{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-14px) rotate(1deg)}}
+
+    /* ══ MARQUEE ══ */
+    .marquee-wrap{overflow:hidden}
+    .marquee-track{display:flex;width:max-content;animation:marquee 35s linear infinite}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* ══ MOBILE NAV ══ */
+    #mobile-menu{max-height:0;overflow:hidden;transition:max-height 350ms var(--ease-io),opacity 350ms var(--ease-io);opacity:0}
+    #mobile-menu.open{max-height:300px;opacity:1}
+
+    /* ══ SOCIAL PROOF CARD HOVER ══ */
+    .proof-card{transition:transform 220ms var(--ease-spring),box-shadow 220ms var(--ease-out),border-color 200ms var(--ease-out)}
+    .proof-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px -20px rgba(0,0,0,0.6),0 0 0 1px rgba(255,200,1,0.15)}
+
+    /* ══ STAR SPARKLE ══ */
+    .star{color:var(--c-gold);display:inline-block;animation:starPop 0.4s var(--ease-spring) both}
+    .star:nth-child(1){animation-delay:.05s}.star:nth-child(2){animation-delay:.1s}.star:nth-child(3){animation-delay:.15s}.star:nth-child(4){animation-delay:.2s}.star:nth-child(5){animation-delay:.25s}
+    @keyframes starPop{0%{transform:scale(0) rotate(-20deg)}70%{transform:scale(1.3) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+
+    /* ══ PING BADGE ══ */
+    @keyframes ping{75%,100%{transform:scale(2);opacity:0}}
+    .ping{animation:ping 1.4s cubic-bezier(0,0,0.2,1) infinite}
+
+    /* ══ FOOTER LINK ══ */
+    .footer-link{color:var(--c-slate);transition:color 175ms var(--ease-out),transform 175ms var(--ease-out);display:inline-block}
+    .footer-link:hover{color:var(--c-gold);transform:translateX(4px)}
+
+    /* ══ SECTION DIVIDER SCAN LINE ══ */
+    .scan-line{position:relative;overflow:hidden}
+    .scan-line::after{content:'';position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--c-gold),transparent);top:0;animation:scanMove 3s var(--ease-io) infinite;opacity:0.3}
+    @keyframes scanMove{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+    /* ══ HERO GRADIENT ORB ══ */
+    .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbDrift 8s var(--ease-io) infinite alternate}
+    @keyframes orbDrift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,-20px) scale(1.1)}}
+
+    /* ══ COUNTER ANIMATE ══ */
+    .count-up{display:inline-block}
+
+    /* ══ MICRO TRANSITION ══ */
+    .mt{transition:all 175ms var(--ease-out)}
+
+    /* ══ REDUCED MOTION ══ */
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <!-- ══ PAGE LOADER ══ -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-logo">arm<span>ory</span> ai</div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-slate);letter-spacing:0.15em;margin-top:4px" id="loader-text">INITIALIZING...</div>
+  </div>
+
+  <!-- ══ CURSOR ══ -->
+  <div id="cur-dot" class="hidden md:block" aria-hidden="true"></div>
+  <div id="cur-ring" class="hidden md:block" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════
+       HEADER
+  ══════════════════════════════════ -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-[#05090C]/70 backdrop-blur-xl border-b border-white/5" role="banner">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2.5 font-mono text-xl font-bold tracking-tighter mt hover:text-gold group" aria-label="Armory AI home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gold" style="transition:transform 300ms var(--ease-spring)" onmouseenter="this.style.transform='rotate(-10deg) scale(1.2)'" onmouseleave="this.style.transform=''" aria-hidden="true">
+          <path d="M13 2L4.5 13H10l-2.5 9L19.5 11H14L13 2z"/>
+        </svg>
+        armory
+      </a>
+      <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+        <a href="#features"  class="nav-link font-mono text-[11px] uppercase tracking-[0.18em] text-slate mt hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-200 hover:after:w-full">Features</a>
+        <a href="#telemetry" class="nav-link font-mono text-[11px] uppercase tracking-[0.18em] text-slate mt hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-200 hover:after:w-full">Telemetry</a>
+        <a href="#solutions" class="nav-link font-mono text-[11px] uppercase tracking-[0.18em] text-slate mt hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-200 hover:after:w-full">Solutions</a>
+        <a href="#pricing"   class="nav-link font-mono text-[11px] uppercase tracking-[0.18em] text-slate mt hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-200 hover:after:w-full">Pricing</a>
+      </nav>
+      <a href="#pricing" class="hidden md:inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-sm bg-gold text-bg btn-ripple mt hover:bg-amber group">
+        Get Started
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+      </a>
+      <button id="nav-toggle" class="md:hidden p-2 rounded-md text-slate hover:text-gold mt" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open"  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+      <nav class="px-5 pb-5 flex flex-col gap-4 border-t border-white/5 pt-4">
+        <a href="#features"  class="font-mono text-xs uppercase tracking-widest text-slate hover:text-gold mt" onclick="closeMobileNav()">Features</a>
+        <a href="#telemetry" class="font-mono text-xs uppercase tracking-widest text-slate hover:text-gold mt" onclick="closeMobileNav()">Telemetry</a>
+        <a href="#solutions" class="font-mono text-xs uppercase tracking-widest text-slate hover:text-gold mt" onclick="closeMobileNav()">Solutions</a>
+        <a href="#pricing"   class="font-mono text-xs uppercase tracking-widest text-slate hover:text-gold mt" onclick="closeMobileNav()">Pricing</a>
+        <a href="#pricing"   class="mt-2 inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-sm bg-gold text-bg btn-ripple hover:bg-amber" onclick="closeMobileNav()">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Neural canvas -->
+    <canvas id="neural-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-25" aria-hidden="true"></canvas>
+
+    <!-- ══════════════════════════════════
+         HERO
+    ══════════════════════════════════ -->
+    <section class="relative z-10 min-h-[92vh] flex flex-col items-center justify-center text-center px-5 sm:px-8 pt-28 pb-24 max-w-7xl mx-auto" aria-label="Hero">
+
+      <!-- Ambient orbs -->
+      <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(17,76,90,0.35),transparent 70%);top:-100px;left:-100px;animation-duration:9s" aria-hidden="true"></div>
+      <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,200,1,0.08),transparent 70%);bottom:0;right:-80px;animation-delay:-4s;animation-duration:11s" aria-hidden="true"></div>
+
+      <!-- Status badge -->
+      <div class="inline-flex items-center gap-2.5 border border-gold/20 bg-gold/5 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-mono text-gold mb-10 sr" role="status">
+        <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span class="ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+        </span>
+        // CORE SYSTEMS ONLINE
+      </div>
+
+      <!-- Headline -->
+      <h1 id="hero-headline" class="text-5xl sm:text-6xl md:text-[5.5rem] font-black tracking-tighter leading-[1.05] max-w-5xl mb-8 drop-shadow-2xl" aria-label="Power your future with AI-driven automation">
+        Power your future with <mark class="bg-transparent text-transparent bg-clip-text bg-gradient-to-br from-gold to-amber">AI-driven</mark> automation
+      </h1>
+
+      <!-- Typewriter subtitle -->
+      <p class="text-slate text-lg sm:text-xl md:text-2xl max-w-2xl leading-relaxed font-light mb-14 sr sd1">
+        <span id="typewriter"></span><span class="type-cursor" aria-hidden="true"></span>
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 items-center sr sd2">
+        <a href="#pricing" class="inline-flex items-center gap-2 font-mono font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-sm bg-snow text-bg btn-ripple mt hover:bg-gold group">
+          Initialize Deployment
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </a>
+        <a href="#features" class="font-mono text-xs uppercase tracking-widest text-slate hover:text-gold mt flex items-center gap-1 group">
+          View Architecture
+          <span class="transition-transform duration-150 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+
+      <!-- Floating badges -->
+      <div class="hidden lg:block" aria-hidden="true">
+        <div class="float-badge" style="top:18%;left:4%;color:var(--c-gold)">⚡ 11ms latency</div>
+        <div class="float-badge" style="top:28%;right:5%;color:#94A3B8">✦ 99.99% uptime</div>
+        <div class="float-badge" style="bottom:22%;left:7%;color:var(--c-gold)">// 115 edge nodes</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         STATS BAR
+    ══════════════════════════════════ -->
+    <section class="relative z-10 border-y border-white/5 bg-white/[0.015] scan-line" aria-label="Performance metrics">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="border-l-2 border-white/10 pl-6 group mt hover:border-gold sr sd1">
+          <div class="font-mono text-[10px] text-gold uppercase tracking-widest mb-2">// LATENCY</div>
+          <div class="font-sans text-4xl sm:text-5xl font-black mb-1 group-hover:text-gold mt">
+            <span class="count-up" data-target="11" data-suffix="ms">11ms</span>
+          </div>
+          <div class="text-sm text-slate">Real-time edge inference</div>
+        </div>
+        <div class="border-l-2 border-white/10 pl-6 group mt hover:border-gold sr sd2">
+          <div class="font-mono text-[10px] text-gold uppercase tracking-widest mb-2">// VELOCITY</div>
+          <div class="font-sans text-4xl sm:text-5xl font-black mb-1 group-hover:text-gold mt">
+            <span class="count-up" data-target="9" data-suffix="×">9×</span>
+          </div>
+          <div class="text-sm text-slate">Processing speed multiplier</div>
+        </div>
+        <div class="border-l-2 border-white/10 pl-6 group mt hover:border-gold sr sd3">
+          <div class="font-mono text-[10px] text-gold uppercase tracking-widest mb-2">// RELIABILITY</div>
+          <div class="font-sans text-4xl sm:text-5xl font-black mb-1 group-hover:text-gold mt">
+            <span id="stat-uptime" aria-live="polite">99.99%</span>
+          </div>
+          <div class="text-sm text-slate">Global node uptime</div>
+        </div>
+        <div class="border-l-2 border-white/10 pl-6 group mt hover:border-gold sr sd4">
+          <div class="font-mono text-[10px] text-gold uppercase tracking-widest mb-2">// EFFICIENCY</div>
+          <div class="font-sans text-4xl sm:text-5xl font-black mb-1 group-hover:text-gold mt">
+            <span class="count-up" data-target="82" data-suffix="%">82%</span>
+          </div>
+          <div class="text-sm text-slate">Net operational growth</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         TELEMETRY
+    ══════════════════════════════════ -->
+    <section id="telemetry" class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-32 sr" aria-label="Live telemetry dashboard">
+      <header class="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-12 gap-4">
+        <div>
+          <p class="text-xs font-mono text-gold uppercase tracking-widest mb-3 sr-left sd1">// LIVE TELEMETRY</p>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight sr-left sd2">Active Neural Processing</h2>
+        </div>
+        <div class="font-mono text-xs text-slate flex items-center gap-2 sr-right">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.6)]" aria-hidden="true"></span>
+          DATA STREAM ACTIVE
+        </div>
+      </header>
+
+      <div class="grid lg:grid-cols-3 gap-5">
+        <!-- System Load Gauge -->
+        <div class="gcard shimmer-card rounded-2xl p-8 bg-card sr-scale sd1" role="region" aria-label="System load gauge">
+          <div class="flex justify-between items-start mb-8">
+            <div class="font-mono text-sm text-snow flex items-center gap-2">
+              <svg class="w-4 h-4 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              System Load
+            </div>
+            <div id="live-load" class="font-mono text-xs text-gold" aria-live="polite">98.7%</div>
+          </div>
+          <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+            <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
+              <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" stroke-width="10" fill="none" stroke-dasharray="4 4"/>
+            </svg>
+            <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
+              <circle id="gauge-load" class="gauge-arc" cx="50" cy="50" r="40" stroke="url(#gaugeGrad)" stroke-width="10" fill="none" stroke-dasharray="251" stroke-dashoffset="251" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#114C5A"/>
+                  <stop offset="100%" stop-color="#FFC801"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="text-center z-10">
+              <div id="live-cores" class="text-5xl font-black" aria-live="polite">15</div>
+              <div class="text-[10px] font-mono text-slate uppercase tracking-widest mt-1">Core Systems</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="gcard shimmer-card rounded-2xl p-8 bg-card sr-scale sd2" role="region" aria-label="Global ping latency chart">
+          <div class="flex justify-between items-start mb-8">
+            <div class="font-mono text-sm text-snow flex items-center gap-2">
+              <svg class="w-4 h-4 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              Global Pings
+            </div>
+            <div class="font-mono text-xs text-green-400">Stable</div>
+          </div>
+          <div class="h-44 w-full flex items-end justify-between gap-3 mt-4">
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="40%" style="height:0"></div>
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="65%" style="height:0"></div>
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="30%" style="height:0"></div>
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="85%" style="height:0"></div>
+            <div class="w-full bg-gold rounded-t-sm bar relative shadow-[0_0_24px_-4px_rgba(255,200,1,0.5)]" data-h="95%" style="height:0">
+              <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full border-2 border-gold animate-pulse" aria-hidden="true"></div>
+            </div>
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="50%" style="height:0"></div>
+            <div class="w-full bg-white/10 rounded-t-sm bar hover:bg-white/20 transition-colors" data-h="70%" style="height:0"></div>
+          </div>
+        </div>
+
+        <!-- Token Throughput -->
+        <div class="gcard shimmer-card rounded-2xl p-8 bg-card sr-scale sd3" role="region" aria-label="Token throughput">
+          <div class="flex justify-between items-start mb-8">
+            <div class="font-mono text-sm text-snow flex items-center gap-2">
+              <svg class="w-4 h-4 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              Throughput
+            </div>
+            <div id="live-throughput" class="font-mono text-xs text-slate" aria-live="polite">8.4M/s</div>
+          </div>
+          <div class="relative h-32 flex items-end justify-center overflow-hidden mt-6">
+            <svg class="absolute bottom-0 w-48 h-48" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M 10 90 A 40 40 0 0 1 90 90" stroke="rgba(255,255,255,0.05)" stroke-width="10" fill="none"/>
+              <path id="gauge-token" class="gauge-arc" d="M 10 90 A 40 40 0 0 1 90 90" stroke="var(--c-snow)" stroke-width="10" fill="none" stroke-dasharray="126" stroke-dashoffset="126" stroke-linecap="round"/>
+            </svg>
+            <div class="text-center z-10 pb-2">
+              <div id="live-tokens" class="text-5xl font-black" aria-live="polite">345</div>
+            </div>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-slate uppercase tracking-widest mt-4">
+            <div><span id="live-qps" class="text-snow" aria-live="polite">152</span><br>Active QPS</div>
+            <div class="text-right"><span class="text-snow">115</span><br>Nodes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         FEATURE 2: BENTO ↔ ACCORDION
+    ══════════════════════════════════ -->
+    <section id="features" class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-32 sr" aria-label="Platform features">
+      <p class="text-xs font-mono text-gold uppercase tracking-widest mb-4 sr-left">// ARCHITECTURE</p>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-14 sr-left sd1">Engineered for Autonomy</h2>
+
+      <!-- Desktop Bento -->
+      <div class="bento-grid" id="bento-grid" role="list">
+        <div class="bento-cell gcard span2 sr-scale sd1" data-idx="0" role="listitem" tabindex="0" aria-label="Infinite Visual Canvas">
+          <div class="bento-icon" aria-hidden="true">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+          </div>
+          <p class="font-mono text-lg text-gold mb-3">01 / Infinite Visual Canvas</p>
+          <p class="text-slate leading-relaxed max-w-md">Map out multi-step agent behaviors on a precision vector playground. Drag, connect, and iterate flows at any scale without hitting limits.</p>
+        </div>
+        <div class="bento-cell gcard sr-scale sd2" data-idx="1" role="listitem" tabindex="0" aria-label="Autonomous Loops">
+          <div class="bento-icon" aria-hidden="true">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <p class="font-mono text-lg text-gold mb-3">02 / Autonomous Loops</p>
+          <p class="text-slate leading-relaxed">Run multi-threaded execution processes end-to-end without constant manual oversight.</p>
+        </div>
+        <div class="bento-cell gcard sr-scale sd3" data-idx="2" role="listitem" tabindex="0" aria-label="Edge Execution">
+          <div class="bento-icon" aria-hidden="true">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <p class="font-mono text-lg text-gold mb-3">03 / Edge Execution</p>
+          <p class="text-slate leading-relaxed">Deploy models where your clients are — sub-ms roundtrips across 110+ global nodes.</p>
+        </div>
+        <div class="bento-cell gcard span2 sr-scale sd4" data-idx="3" role="listitem" tabindex="0" aria-label="Absolute Security">
+          <div class="bento-icon" aria-hidden="true">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <p class="font-mono text-lg text-gold mb-3">04 / Absolute Security</p>
+          <p class="text-slate leading-relaxed max-w-md">Enterprise-ready encryption guarding every memory layer and processing vector natively from day one — zero config required.</p>
+        </div>
+      </div>
+
+      <!-- Mobile Accordion -->
+      <div class="accordion-list" id="accordion-list" role="list">
+        <div class="acc-item gcard" data-idx="0" role="listitem">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="acc-panel-0" id="acc-btn-0">
+            <span><span class="text-gold mr-2">01 /</span> Infinite Visual Canvas</span>
+            <svg class="acc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="acc-panel" id="acc-panel-0" role="region" aria-labelledby="acc-btn-0">
+            <p class="text-slate text-sm leading-relaxed pb-4">Map out multi-step agent behaviors on a precision vector playground. Drag, connect, and iterate at any scale.</p>
+          </div>
+        </div>
+        <div class="acc-item gcard" data-idx="1" role="listitem">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="acc-panel-1" id="acc-btn-1">
+            <span><span class="text-gold mr-2">02 /</span> Autonomous Loops</span>
+            <svg class="acc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="acc-panel" id="acc-panel-1" role="region" aria-labelledby="acc-btn-1">
+            <p class="text-slate text-sm leading-relaxed pb-4">Run multi-threaded execution processes end-to-end without constant manual oversight or polling.</p>
+          </div>
+        </div>
+        <div class="acc-item gcard" data-idx="2" role="listitem">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="acc-panel-2" id="acc-btn-2">
+            <span><span class="text-gold mr-2">03 /</span> Edge Execution</span>
+            <svg class="acc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="acc-panel" id="acc-panel-2" role="region" aria-labelledby="acc-btn-2">
+            <p class="text-slate text-sm leading-relaxed pb-4">Deploy models where your clients are — sub-millisecond roundtrips across 110+ global nodes.</p>
+          </div>
+        </div>
+        <div class="acc-item gcard" data-idx="3" role="listitem">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="acc-panel-3" id="acc-btn-3">
+            <span><span class="text-gold mr-2">04 /</span> Absolute Security</span>
+            <svg class="acc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="acc-panel" id="acc-panel-3" role="region" aria-labelledby="acc-btn-3">
+            <p class="text-slate text-sm leading-relaxed pb-4">Enterprise-ready encryption guarding every memory layer from day one — zero config required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         MARQUEE / SOLUTIONS
+    ══════════════════════════════════ -->
+    <section id="solutions" class="relative z-10 border-y border-white/5 py-5 overflow-hidden" aria-label="Integration partners">
+      <div class="marquee-wrap">
+        <div class="marquee-track font-mono text-xs uppercase tracking-[0.25em] text-slate flex gap-0" aria-hidden="true">
+          <span class="whitespace-nowrap px-8">// AWS LAMBDA</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// KUBERNETES</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// OPENAI GPT-4</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// CLOUDFLARE WORKERS</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// PINECONE</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// WEAVIATE</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// SUPABASE</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// AWS LAMBDA</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// KUBERNETES</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// OPENAI GPT-4</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// CLOUDFLARE WORKERS</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// PINECONE</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// WEAVIATE</span><span class="px-4 text-gold">✦</span>
+          <span class="whitespace-nowrap px-8">// SUPABASE</span><span class="px-4 text-gold">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SOCIAL PROOF
+    ══════════════════════════════════ -->
+    <section class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-28 sr" aria-label="Customer testimonials">
+      <p class="text-xs font-mono text-gold uppercase tracking-widest mb-4 text-center">// SOCIAL PROOF</p>
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-center mb-16 sr sd1">Trusted by Engineering Teams</h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <blockquote class="proof-card gcard shimmer-card rounded-2xl p-8 bg-card flex flex-col gap-5 sr-scale sd1">
+          <div class="flex gap-0.5" aria-label="5 out of 5 stars">
+            <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="text-slate text-sm leading-relaxed">"Armory cut our agent pipeline build time from six weeks to three days. The bento workflow canvas is genuinely the best interface for visualising complex AI graphs I've used."</p>
+          <footer class="mt-auto pt-4 border-t border-white/5">
+            <div class="font-mono text-xs font-bold text-snow">Priya Nair</div>
+            <div class="font-mono text-[10px] text-slate mt-0.5">Head of ML Platform, Fractal Analytics</div>
+          </footer>
+        </blockquote>
+        <blockquote class="proof-card gcard shimmer-card rounded-2xl p-8 bg-card flex flex-col gap-5 sr-scale sd2">
+          <div class="flex gap-0.5" aria-label="5 out of 5 stars">
+            <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="text-slate text-sm leading-relaxed">"99.99% uptime is not a marketing line — we have run Armory in production for eight months with zero downtime incidents. The edge latency is extraordinary."</p>
+          <footer class="mt-auto pt-4 border-t border-white/5">
+            <div class="font-mono text-xs font-bold text-snow">Daniel Osei</div>
+            <div class="font-mono text-[10px] text-slate mt-0.5">CTO, Meridian Data Labs</div>
+          </footer>
+        </blockquote>
+        <blockquote class="proof-card gcard shimmer-card rounded-2xl p-8 bg-card flex flex-col gap-5 sr-scale sd3">
+          <div class="flex gap-0.5" aria-label="5 out of 5 stars">
+            <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="text-slate text-sm leading-relaxed">"We switched from a stitched-together LangChain setup to Armory in a weekend. The autonomous loop runner replaced about 1,400 lines of brittle orchestration code."</p>
+          <footer class="mt-auto pt-4 border-t border-white/5">
+            <div class="font-mono text-xs font-bold text-snow">Aiko Tanaka</div>
+            <div class="font-mono text-[10px] text-slate mt-0.5">Staff Engineer, Notion AI</div>
+          </footer>
+        </blockquote>
+      </div>
+
+      <div class="mt-16 flex flex-wrap justify-center items-center gap-10 opacity-40 sr sd5" aria-label="Companies using Armory">
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">Fractal</span>
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">Meridian</span>
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">Notion</span>
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">Synapse</span>
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">AuraAI</span>
+        <span class="font-mono text-sm font-bold tracking-widest uppercase text-snow hover:opacity-100 mt hover:text-gold cursor-default">VectorOps</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         FEATURE 1: PRICING
+    ══════════════════════════════════ -->
+    <section id="pricing" class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-24 mb-20 sr" aria-label="Pricing plans">
+      <div class="border border-white/5 bg-white/[0.015] rounded-[2rem] p-8 sm:p-14">
+        <div class="text-center mb-14">
+          <p class="text-xs font-mono text-gold uppercase tracking-widest mb-4 sr sd1">// TRANSPARENT SCALE MODELING</p>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight sr sd2">Pick your tier</h2>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-16 sr sd2" role="group" aria-label="Billing controls">
+          <div class="flex items-center gap-1 p-1 rounded-lg border border-white/10 bg-bg" role="radiogroup" aria-label="Billing cycle">
+            <button id="tog-monthly" role="radio" aria-checked="true"
+              class="px-5 py-2.5 text-xs font-mono font-bold rounded-md bg-white/10 text-gold mt"
+              style="transition:background 175ms var(--ease-out),color 175ms var(--ease-out)">Monthly</button>
+            <button id="tog-annual" role="radio" aria-checked="false"
+              class="px-5 py-2.5 text-xs font-mono font-bold rounded-md text-slate mt hover:text-snow"
+              style="transition:background 175ms var(--ease-out),color 175ms var(--ease-out)">
+              Annual <span class="text-green-400">−20%</span>
+            </button>
+          </div>
+          <div class="relative">
+            <label for="currency-select" class="sr-only">Select currency</label>
+            <select id="currency-select" class="appearance-none font-mono text-xs font-bold uppercase tracking-widest px-5 py-3 pr-10 rounded-lg border border-white/10 bg-bg text-snow cursor-pointer mt hover:border-gold focus:outline-none focus:border-gold" aria-label="Currency">
+              <option value="USD">USD ($)</option>
+              <option value="INR">INR (₹)</option>
+              <option value="EUR">EUR (€)</option>
+            </select>
+            <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="grid md:grid-cols-3 gap-5 items-start">
+          <article class="price-card tilt-card gcard rounded-2xl p-8 cursor-pointer sr-left sd1" id="pcard-0" aria-label="Sandbox Node plan">
+            <header>
+              <p class="font-mono text-xs text-slate mb-3 uppercase tracking-wider">Sandbox Node</p>
+              <div class="text-5xl font-black mb-1 flex items-start gap-1">
+                <span class="p-sym text-gold text-3xl mt-1" aria-hidden="true">$</span>
+                <span class="p-val" id="pval-0" aria-live="polite">19</span>
+              </div>
+              <p class="font-mono text-[10px] text-slate uppercase tracking-widest mb-8" id="plabel-0">per month</p>
+            </header>
+            <ul class="text-sm font-mono text-slate space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> 100k Queries / month</li>
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> Standard Edge Node</li>
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> Community support</li>
+            </ul>
+            <a href="#" class="block w-full text-center font-mono text-xs font-bold uppercase tracking-widest py-3 rounded-sm border border-white/20 text-snow btn-ripple mt hover:border-gold hover:text-gold">Get Started</a>
+          </article>
+
+          <article class="price-card tilt-card gcard rounded-2xl p-8 cursor-pointer featured border-gold bg-gold/5 shadow-[0_0_50px_-15px_rgba(255,200,1,0.4)] sr sd2" id="pcard-1" aria-label="Production Tier — most popular">
+            <div class="flex justify-end mb-3">
+              <span class="bg-gold text-bg text-[10px] font-mono font-black px-3 py-1 rounded-sm uppercase tracking-widest animate-pulse">Popular</span>
+            </div>
+            <header>
+              <p class="font-mono text-xs text-slate mb-3 uppercase tracking-wider">Production Tier</p>
+              <div class="text-5xl font-black mb-1 flex items-start gap-1">
+                <span class="p-sym text-gold text-3xl mt-1" aria-hidden="true">$</span>
+                <span class="p-val" id="pval-1" aria-live="polite">49</span>
+              </div>
+              <p class="font-mono text-[10px] text-slate uppercase tracking-widest mb-8" id="plabel-1">per month</p>
+            </header>
+            <ul class="text-sm font-mono text-slate space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><span class="text-gold" aria-hidden="true">✓</span> 1M Queries / month</li>
+              <li class="flex items-center gap-3"><span class="text-gold" aria-hidden="true">✓</span> Priority Edge Network</li>
+              <li class="flex items-center gap-3"><span class="text-gold" aria-hidden="true">✓</span> 99.99% SLA Guarantee</li>
+              <li class="flex items-center gap-3"><span class="text-gold" aria-hidden="true">✓</span> Dedicated support</li>
+            </ul>
+            <a href="#" class="block w-full text-center font-mono text-xs font-bold uppercase tracking-widest py-3 rounded-sm bg-gold text-bg btn-ripple mt hover:bg-amber">Start Building</a>
+          </article>
+
+          <article class="price-card tilt-card gcard rounded-2xl p-8 cursor-pointer sr-right sd1" id="pcard-2" aria-label="Enterprise Grid plan">
+            <header>
+              <p class="font-mono text-xs text-slate mb-3 uppercase tracking-wider">Enterprise Grid</p>
+              <div class="text-5xl font-black mb-1 flex items-start gap-1">
+                <span class="p-sym text-gold text-3xl mt-1" aria-hidden="true">$</span>
+                <span class="p-val" id="pval-2" aria-live="polite">99</span>
+              </div>
+              <p class="font-mono text-[10px] text-slate uppercase tracking-widest mb-8" id="plabel-2">per month</p>
+            </header>
+            <ul class="text-sm font-mono text-slate space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> Unlimited Queries</li>
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> Dedicated Node Cluster</li>
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> Custom SLA</li>
+              <li class="flex items-center gap-3"><span class="text-snow" aria-hidden="true">✓</span> White-glove onboarding</li>
+            </ul>
+            <a href="#" class="block w-full text-center font-mono text-xs font-bold uppercase tracking-widest py-3 rounded-sm border border-white/20 text-snow btn-ripple mt hover:border-gold hover:text-gold">Contact Sales</a>
+          </article>
+        </div>
+
+        <p class="text-center font-mono text-xs text-slate mt-10 sr sd3">All plans include free migration support. No lock-in contracts.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer class="relative z-10 border-t border-white/5 bg-white/[0.01]" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="sr-left">
+        <div class="font-mono text-lg font-bold tracking-tighter text-snow mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-gold" aria-hidden="true"><path d="M13 2L4.5 13H10l-2.5 9L19.5 11H14L13 2z"/></svg>
+          armory
+        </div>
+        <p class="text-slate text-sm leading-relaxed">Advanced AI-driven data automation for engineering teams that move fast.</p>
+      </div>
+      <nav aria-label="Product links" class="sr sd1">
+        <p class="font-mono text-[10px] text-gold uppercase tracking-widest mb-4">Product</p>
+        <ul class="space-y-2.5 text-sm" role="list">
+          <li><a href="#features"  class="footer-link">Features</a></li>
+          <li><a href="#pricing"   class="footer-link">Pricing</a></li>
+          <li><a href="#telemetry" class="footer-link">Telemetry</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Company links" class="sr sd2">
+        <p class="font-mono text-[10px] text-gold uppercase tracking-widest mb-4">Company</p>
+        <ul class="space-y-2.5 text-sm" role="list">
+          <li><a href="#" class="footer-link">About</a></li>
+          <li><a href="#" class="footer-link">Blog</a></li>
+          <li><a href="#" class="footer-link">Careers</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal links" class="sr sd3">
+        <p class="font-mono text-[10px] text-gold uppercase tracking-widest mb-4">Legal</p>
+        <ul class="space-y-2.5 text-sm" role="list">
+          <li><a href="#" class="footer-link">Privacy</a></li>
+          <li><a href="#" class="footer-link">Terms</a></li>
+          <li><a href="#" class="footer-link">Security</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="border-t border-white/5 max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-mono text-[10px] text-slate uppercase tracking-widest">© 2026 Armory AI Inc. All rights reserved.</p>
+      <p class="font-mono text-[10px] text-slate uppercase tracking-widest">Built for the future. Deployed at the edge.</p>
+    </div>
+  </footer>
+
+  <script>
+  // ════════════════════════════════════════════════════════
+  //  ALL SCRIPTS — DOMContentLoaded
+  // ════════════════════════════════════════════════════════
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // ─── PAGE LOADER ─────────────────────────────────────
+    const loader    = document.getElementById('loader');
+    const loaderBar = document.getElementById('loader-bar');
+    const loaderTxt = document.getElementById('loader-text');
+    const stages    = ['INITIALIZING...','LOADING MODULES...','CALIBRATING NODES...','READY'];
+    let stageIdx    = 0;
+    const stageTimer = setInterval(() => {
+      stageIdx++;
+      if (stageIdx < stages.length) {
+        loaderBar.style.width = (stageIdx / (stages.length - 1) * 100) + '%';
+        loaderTxt.textContent = stages[stageIdx];
+      }
+      if (stageIdx >= stages.length - 1) {
+        clearInterval(stageTimer);
+        setTimeout(() => {
+          loader.classList.add('done');
+          startHeroReveal();
+        }, 250);
+      }
+    }, 220);
+    // kick bar to 25% immediately
+    setTimeout(() => { loaderBar.style.width = '25%'; }, 50);
+
+    // ─── HERO REVEAL (called after loader) ───────────────
+    function startHeroReveal() {
+      const hl   = document.getElementById('hero-headline');
+      const text = hl.innerText;
+      hl.innerHTML = '';
+      text.split(' ').forEach((w, i) => {
+        const span = document.createElement('span');
+        span.className = 'word inline-block mr-[0.22em]';
+        if (w === 'AI-driven') {
+          span.innerHTML = `<mark class="bg-transparent text-transparent bg-clip-text bg-gradient-to-br from-gold to-amber">${w}</mark>`;
+        } else {
+          span.textContent = w;
+        }
+        span.style.animationDelay = `${i * 0.055}s`;
+        setTimeout(() => span.classList.add('revealed'), 0);
+        hl.appendChild(span);
+      });
+
+      // Typewriter subtitle
+      const phrases = [
+        'Deploy custom enterprise agents at scale.',
+        'Automate complex workflows globally.',
+        'Real-time edge inference. 11ms latency.',
+      ];
+      let pi = 0, ci = 0, deleting = false;
+      const tw = document.getElementById('typewriter');
+      function typeStep() {
+        const phrase = phrases[pi];
+        if (!deleting) {
+          ci++;
+          tw.textContent = phrase.slice(0, ci);
+          if (ci === phrase.length) { deleting = true; setTimeout(typeStep, 1800); return; }
+          setTimeout(typeStep, 38);
+        } else {
+          ci--;
+          tw.textContent = phrase.slice(0, ci);
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(typeStep, 300); return; }
+          setTimeout(typeStep, 18);
+        }
+      }
+      setTimeout(typeStep, 400);
+    }
+
+    // ─── CURSOR ─────────────────────────────────────────
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,rx=mx,ry=my;
+
+    if (window.matchMedia('(pointer:fine)').matches) {
+      window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+      window.addEventListener('mousedown', () => ring.classList.add('cursor-click'));
+      window.addEventListener('mouseup',   () => ring.classList.remove('cursor-click'));
+
+      (function tick(){
+        dx+=(mx-dx)*.3; dy+=(my-dy)*.3;
+        rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+        dot.style.transform  = `translate3d(${dx-3}px,${dy-3}px,0)`;
+        ring.style.transform = `translate3d(${rx-20}px,${ry-20}px,0)`;
+        requestAnimationFrame(tick);
+      })();
+
+      document.querySelectorAll('a,button,[tabindex="0"]').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('cursor-grow'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('cursor-grow'));
+      });
+    }
+
+    // ─── MOBILE NAV ─────────────────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen   = document.getElementById('icon-open');
+    const iconClose  = document.getElementById('icon-close');
+
+    function closeMobileNav() {
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      navToggle.setAttribute('aria-expanded','false');
+    }
+    window.closeMobileNav = closeMobileNav;
+
+    navToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // ─── BUTTON RIPPLE ─────────────────────────────────
+    document.querySelectorAll('.btn-ripple').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const r = btn.getBoundingClientRect();
+        const d = document.createElement('span');
+        const sz = Math.max(btn.offsetWidth, btn.offsetHeight);
+        d.className = 'ripple';
+        d.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
+        btn.appendChild(d);
+        setTimeout(() => d.remove(), 600);
+      });
+    });
+
+    // ─── GLOW CARD MOUSE ────────────────────────────────
+    document.querySelectorAll('.gcard').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX-r.left}px`);
+        card.style.setProperty('--my', `${e.clientY-r.top}px`);
+      });
+    });
+
+    // ─── 3D TILT on pricing cards ────────────────────────
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        if (card.classList.contains('featured')) return; // skip the featured card
+        const r = card.getBoundingClientRect();
+        const cx = r.left + r.width/2, cy = r.top + r.height/2;
+        const rx2 = (e.clientY - cy) / (r.height/2) * -6;
+        const ry2 = (e.clientX - cx) / (r.width/2) * 6;
+        card.style.transform = `perspective(600px) rotateX(${rx2}deg) rotateY(${ry2}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        if (card.classList.contains('featured')) return;
+        card.style.transform = '';
+      });
+    });
+
+    // ─── NEURAL CANVAS ──────────────────────────────────
+    const canvas = document.getElementById('neural-canvas');
+    const ctx    = canvas.getContext('2d');
+    let cmx=innerWidth/2, cmy=innerHeight/2;
+
+    function resizeCanvas(){ canvas.width=innerWidth; canvas.height=innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    window.addEventListener('mousemove', e=>{ cmx=e.clientX; cmy=e.clientY; });
+
+    const particles = Array.from({length:65}, ()=>({
+      x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+      vx:(Math.random()-.5)*.7, vy:(Math.random()-.5)*.7,
+      bvx:(Math.random()-.5)*.7, bvy:(Math.random()-.5)*.7,
+      size: Math.random()*1.5+0.5,
+    }));
+
+    (function drawNet(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p=>{
+        const ddx=p.x-cmx,ddy=p.y-cmy,d=Math.hypot(ddx,ddy);
+        if(d<160){const f=(160-d)/160;p.vx+=(ddx/d)*f*.45;p.vy+=(ddy/d)*f*.45;}
+        p.vx=p.vx*.96+p.bvx*.04; p.vy=p.vy*.96+p.bvy*.04;
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>canvas.width) p.vx*=-1;
+        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,200,1,0.6)'; ctx.fill();
+        particles.forEach(q=>{
+          const ld=Math.hypot(p.x-q.x,p.y-q.y);
+          if(ld<115){
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle=`rgba(17,76,90,${0.45*(1-ld/115)})`; ctx.lineWidth=1; ctx.stroke();
+          }
+        });
+      });
+      requestAnimationFrame(drawNet);
+    })();
+
+    // ─── SCROLL REVEAL + TELEMETRY + COUNT-UP ────────────
+    let telemetryFired = false, statsFired = false;
+
+    function countUp(el, target, suffix, duration=1200) {
+      let start = null;
+      (function step(ts){
+        if(!start) start=ts;
+        const p = Math.min((ts-start)/duration,1);
+        const ep = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(ep*target) + suffix;
+        if(p<1) requestAnimationFrame(step);
+      })(performance.now());
+    }
+
+    const revealObserver = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+
+        // Telemetry
+        if(entry.target.id==='telemetry' && !telemetryFired){
+          telemetryFired=true;
+          setTimeout(()=>{
+            document.getElementById('gauge-load').style.strokeDashoffset='10';
+            document.getElementById('gauge-token').style.strokeDashoffset='20';
+            document.querySelectorAll('.bar').forEach(b=>{ b.style.height=b.dataset.h; });
+          },180);
+        }
+
+        // Stats count-up
+        if(!statsFired){
+          entry.target.querySelectorAll('.count-up').forEach(el=>{
+            const target = parseInt(el.dataset.target);
+            const suffix = el.dataset.suffix||'';
+            if(!isNaN(target)) countUp(el, target, suffix);
+            statsFired=true;
+          });
+        }
+
+        revealObserver.unobserve(entry.target);
+      });
+    },{ rootMargin:'0px 0px -70px 0px' });
+
+    document.querySelectorAll('.sr,.sr-left,.sr-right,.sr-scale').forEach(el=>revealObserver.observe(el));
+
+    // Live telemetry
+    setInterval(()=>{
+      if(!telemetryFired) return;
+      document.getElementById('live-load').textContent     = (97+Math.random()*2.5).toFixed(1)+'%';
+      document.getElementById('live-cores').textContent    = Math.floor(14+Math.random()*3);
+      document.getElementById('stat-uptime').textContent   = '99.9'+Math.floor(8+Math.random()*2)+'%';
+      document.getElementById('live-throughput').textContent=(8.2+Math.random()*0.4).toFixed(1)+'M/s';
+      document.getElementById('live-tokens').textContent   = Math.floor(340+Math.random()*20);
+      document.getElementById('live-qps').textContent      = Math.floor(145+Math.random()*18);
+    },2000);
+
+    // ─────────────────────────────────────────────────────
+    //  FEATURE 1: PRICING ENGINE (state-isolated)
+    // ─────────────────────────────────────────────────────
+    const MATRIX = {
+      USD:{sym:'$', base:[19,  49,  99 ]},
+      INR:{sym:'₹', base:[1600,4100,8800]},
+      EUR:{sym:'€', base:[17,  44,  90 ]},
+    };
+    const ANNUAL_MULT = 0.8;
+    let activeCycle='monthly', activeCurr='USD';
+
+    function animateVal(el, endVal, ms) {
+      const startVal = parseInt(el.textContent)||0;
+      if(startVal===endVal) return;
+      let t0=null;
+      (function step(ts){
+        if(!t0) t0=ts;
+        const p=Math.min((ts-t0)/ms,1);
+        const ep=1-Math.pow(1-p,3);
+        // Write ONLY to the text node — no parent reflow
+        el.textContent = Math.round(startVal+ep*(endVal-startVal));
+        if(p<1) requestAnimationFrame(step);
+        else el.textContent=endVal;
+      })(performance.now());
+    }
+
+    function updatePricing(){
+      const {sym,base} = MATRIX[activeCurr];
+      const mult = activeCycle==='annual' ? ANNUAL_MULT : 1;
+      const label = activeCycle==='annual' ? 'per month (billed annually)' : 'per month';
+      document.querySelectorAll('.p-sym').forEach(el=>{ el.textContent=sym; });
+      [0,1,2].forEach(i=>{
+        animateVal(document.getElementById('pval-'+i), Math.round(base[i]*mult), 380);
+        document.getElementById('plabel-'+i).textContent=label;
+      });
+    }
+
+    function setBillingCycle(cycle){
+      activeCycle=cycle;
+      const isM=cycle==='monthly';
+      const togM=document.getElementById('tog-monthly');
+      const togA=document.getElementById('tog-annual');
+      togM.style.background=isM?'rgba(255,255,255,0.1)':'transparent';
+      togM.style.color=isM?'#FFC801':'#94A3B8';
+      togA.style.background=!isM?'rgba(255,255,255,0.1)':'transparent';
+      togA.style.color=!isM?'#FFC801':'#94A3B8';
+      togM.setAttribute('aria-checked',String(isM));
+      togA.setAttribute('aria-checked',String(!isM));
+      updatePricing();
+    }
+
+    document.getElementById('tog-monthly').addEventListener('click',()=>setBillingCycle('monthly'));
+    document.getElementById('tog-annual').addEventListener('click',()=>setBillingCycle('annual'));
+    document.getElementById('currency-select').addEventListener('change',e=>{ activeCurr=e.target.value; updatePricing(); });
+    updatePricing();
+
+    // ─────────────────────────────────────────────────────
+    //  FEATURE 2: BENTO ↔ ACCORDION (no external libs)
+    // ─────────────────────────────────────────────────────
+    let activeIdx = null;
+    const bentoCells = document.querySelectorAll('.bento-cell');
+    const accItems   = document.querySelectorAll('.acc-item');
+
+    // Bento
+    bentoCells.forEach(cell=>{
+      const activate=()=>{
+        const idx=parseInt(cell.dataset.idx);
+        activeIdx=(activeIdx===idx)?null:idx;
+        bentoCells.forEach(c=>c.classList.toggle('active-bento',parseInt(c.dataset.idx)===activeIdx));
+      };
+      cell.addEventListener('click',activate);
+      cell.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();} });
+      cell.addEventListener('mouseenter',()=>{ cell._hovering=true; });
+      cell.addEventListener('mouseleave',()=>{ cell._hovering=false; });
+    });
+
+    // Accordion
+    function openAccordion(idx){
+      accItems.forEach(item=>{
+        const isTarget=parseInt(item.dataset.idx)===idx;
+        const btn=item.querySelector('.acc-trigger');
+        if(isTarget){
+          item.classList.toggle('open');
+          btn.setAttribute('aria-expanded',String(item.classList.contains('open')));
+          activeIdx=item.classList.contains('open')?idx:null;
+        } else {
+          item.classList.remove('open');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+    }
+    accItems.forEach(item=>{
+      item.querySelector('.acc-trigger').addEventListener('click',()=>openAccordion(parseInt(item.dataset.idx)));
+    });
+
+        // Resize context transfer
+    let wasMobile = window.innerWidth < 768;
+
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile === wasMobile) return;
+
+      wasMobile = isMobile;
+
+      if (isMobile) {
+        const hovered = [...bentoCells].find(c => c._hovering);
+
+        const ti = hovered
+          ? parseInt(hovered.dataset.idx)
+          : activeIdx;
+
+        if (ti !== null) {
+          accItems.forEach(item => {
+            const match = parseInt(item.dataset.idx) === ti;
+
+            item.classList.toggle('open', match);
+
+            item
+              .querySelector('.acc-trigger')
+              .setAttribute('aria-expanded', String(match));
+          });
+
+          activeIdx = ti;
+        }
+
+      } else {
+
+        const openItem = [...accItems].find(item =>
+          item.classList.contains('open')
+        );
+
+        const ti = openItem
+          ? parseInt(openItem.dataset.idx)
+          : null;
+
+        bentoCells.forEach(cell => {
+          cell.classList.toggle(
+            'active-bento',
+            ti !== null &&
+            parseInt(cell.dataset.idx) === ti
+          );
+        });
+
+        activeIdx = ti;
+      }
+    });
+
+  }); // DOMContentLoaded
+</script>
+
+</body>
+</html>
